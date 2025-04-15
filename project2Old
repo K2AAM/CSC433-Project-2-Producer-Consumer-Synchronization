@@ -1,0 +1,106 @@
+# Adam Morehouse
+# Ryan Fosco
+# Brandon Coulter
+# 14 April 2025
+
+
+import threading
+import sys
+import time
+from collections import deque
+
+# Global variables
+fifo = deque()
+maxFifo = int(sys.argv[4])  # Maximum FIFO depth from command line
+transactionFile = open(sys.argv[1])  # Input file
+idCounter = 0  # Counter for internal transaction IDs
+
+# Semaphores for synchronization
+items = threading.Semaphore(0)  # Tracks items in FIFO (starts at 0)
+spaces = threading.Semaphore(maxFifo)  # Tracks available spaces in FIFO
+mutex = threading.Lock()  # Protects FIFO access
+eof = False  # End-of-file flag
+eof_mutex = threading.Lock()  # Protects eof flag
+
+# Transaction class
+class Transaction:
+    def __init__(self, transactionId, producerSleep, consumerSleep, internalId):
+        self.transactionId = transactionId
+        self.producerSleep = producerSleep
+        self.consumerSleep = consumerSleep.strip()
+        self.internalId = internalId
+
+# Producer thread function
+def threadProducer():
+    global idCounter, eof
+    for line in transactionFile:
+        spaces.acquire()  # Wait for space in FIFO
+        params = line.split(",")
+        
+        with mutex:  # Critical section for FIFO append
+            idCounter += 1
+            t = Transaction(params[0], params[1], params[2], idCounter)
+            fifo.append(t)
+            print(f'Producer: {t.transactionId} internalId: {t.internalId}')
+        
+        items.release()  # Signal item available
+        time.sleep(float(t.producerSleep) / 1000)  # Sleep after releasing lock
+    
+    # Handle end-of-file
+    with eof_mutex:
+        eof = True
+    print('Producer completed')
+
+# Consumer thread function
+def threadConsumer():
+    global eof
+    while True:
+        items.acquire()  # Wait for item in FIFO
+        
+        with mutex:  # Critical section for FIFO pop
+            if not fifo:  # Check if FIFO is empty and EOF reached
+                with eof_mutex:
+                    if eof:
+                        items.release()  # Release to allow other consumers to check EOF
+                        break
+                items.release()  # Release and retry if no EOF
+                continue
+            t = fifo.popleft()
+            print(f'Consumer: {t.transactionId} internalId: {t.internalId}')
+        
+        spaces.release()  # Signal space available
+        
+        if int(t.transactionId) == 9999:  # Check for termination transaction
+            with eof_mutex:
+                eof = True
+            break
+            
+        time.sleep(float(t.consumerSleep) / 1000)  # Sleep after releasing lock
+    
+    print('Consumer completed')
+
+# Main program
+def main():
+    threads = []
+    
+    # Start producers
+    print(f'Transaction file: {sys.argv[1]}')
+    print(f'Starting producers: {sys.argv[2]}')
+    for _ in range(int(sys.argv[2])):
+        t = threading.Thread(target=threadProducer)
+        t.start()
+        threads.append(t)
+    
+    # Start consumers
+    print(f'Starting consumers: {sys.argv[3]}')
+    for _ in range(int(sys.argv[3])):
+        t = threading.Thread(target=threadConsumer)
+        t.start()
+        threads.append(t)
+    
+    # Wait for all threads to complete
+    for t in threads:
+        t.join()
+
+if __name__ == "__main__":
+    main()

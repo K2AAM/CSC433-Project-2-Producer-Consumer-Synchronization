@@ -1,0 +1,194 @@
+CSC433A Project 2 Test Results
+Adam Morehouse, Ryan Fosco, Brandon Coulter
+14 April 2025
+
+--- Test 1 ---
+Command: python project2.py transactions.txt 1 1 1
+
+Transaction file: transactions.txt
+Starting producers: 1
+Starting consumers: 1
+Producer: 0001 internalId: 1
+Consumer: 0001 internalId: 1
+Producer: 0002 internalId: 2
+Consumer: 0002 internalId: 2
+Producer: 0003 internalId: 3
+Consumer: 0003 internalId: 3
+Producer: 0004 internalId: 4
+Consumer: 0004 internalId: 4
+Producer: 0005 internalId: 5
+Consumer: 0005 internalId: 5
+Producer: 0006 internalId: 6
+Consumer: 0006 internalId: 6
+Producer: 0007 internalId: 7
+Consumer: 0007 internalId: 7
+Producer: 0008 internalId: 8
+Consumer: 0008 internalId: 8
+Producer: 0009 internalId: 9
+Consumer: 0009 internalId: 9
+Producer: 0010 internalId: 10
+Consumer: 0010 internalId: 10
+Producer: 9999 internalId: 11
+Consumer: 9999 internalId: 11
+Consumer completed
+Producer completed
+
+==================================================
+
+--- Test 2 ---
+Command: python project2.py transactions.txt 1 2 5
+
+Transaction file: transactions.txt
+Starting producers: 1
+Producer: 0001 internalId: 1
+Starting consumers: 2
+Consumer: 0001 internalId: 1
+Producer: 0002 internalId: 2
+Consumer: 0002 internalId: 2
+Producer: 0003 internalId: 3
+Consumer: 0003 internalId: 3
+Producer: 0004 internalId: 4
+Consumer: 0004 internalId: 4
+Producer: 0005 internalId: 5
+Consumer: 0005 internalId: 5
+Producer: 0006 internalId: 6
+Consumer: 0006 internalId: 6
+Producer: 0007 internalId: 7
+Consumer: 0007 internalId: 7
+Producer: 0008 internalId: 8
+Consumer: 0008 internalId: 8
+Producer: 0009 internalId: 9
+Consumer: 0009 internalId: 9
+Producer: 0010 internalId: 10
+Consumer: 0010 internalId: 10
+Producer: 9999 internalId: 11
+Consumer: 9999 internalId: 11
+Consumer completed
+Producer completed
+Consumer completed
+
+==================================================
+
+--- Test 3 ---
+Command: python project2.py transactions.txt 2 1 5
+
+Transaction file: transactions.txt
+Starting producers: 2
+Producer: 0001 internalId: 1
+Producer: 0002 internalId: 2
+Starting consumers: 1
+Consumer: 0001 internalId: 1
+Producer: 0003 internalId: 3
+Producer: 0004 internalId: 4
+Consumer: 0002 internalId: 2
+Producer: 0005 internalId: 5
+Consumer: 0003 internalId: 3
+Producer: 0006 internalId: 6
+Consumer: 0004 internalId: 4
+Producer: 0007 internalId: 7
+Consumer: 0005 internalId: 5
+Producer: 0008 internalId: 8
+Producer: 0009 internalId: 9
+Consumer: 0006 internalId: 6
+Producer: 0010 internalId: 10
+Producer: 9999 internalId: 11
+Consumer: 0007 internalId: 7
+Producer completed
+Producer completed
+Consumer: 0008 internalId: 8
+Consumer: 0009 internalId: 9
+Consumer: 0010 internalId: 10
+Consumer: 9999 internalId: 11
+Consumer completed
+
+==================================================
+
+--- Test 4 ---
+Command: python project2.py transactionsMedium.txt 2 2 3
+
+Transaction file: transactionsMedium.txt
+Starting producers: 2
+Producer: 0001 internalId: 1
+Producer: 0002 internalId: 2
+Starting consumers: 2
+Consumer: 0001 internalId: 1
+Consumer: 0002 internalId: 2
+Producer: 0003 internalId: 3
+Producer: 0004 internalId: 4
+Consumer: 0003 internalId: 3
+Consumer: 0004 internalId: 4
+Producer: 9999 internalId: 5
+Producer completed
+Producer completed
+Consumer: 9999 internalId: 5
+Consumer completed
+Consumer completed
+
+==================================================
+
+--- Test 5 ---
+Command: python project2.py transactionsHeavy.txt 3 3 10
+
+Transaction file: transactionsHeavy.txt
+Starting producers: 3
+Producer: 0001 internalId: 1
+Producer: 0002 internalId: 2
+Producer: 0003 internalId: 3
+Starting consumers: 3
+Consumer: 0001 internalId: 1
+Consumer: 0002 internalId: 2
+Consumer: 0003 internalId: 3
+Producer: 0004 internalId: 4
+Producer: 0005 internalId: 5
+Producer: 0006 internalId: 6
+Consumer: 0004 internalId: 4
+Consumer: 0005 internalId: 5
+Consumer: 0006 internalId: 6
+Producer: 0007 internalId: 7
+Producer: 0008 internalId: 8
+Consumer: 0007 internalId: 7
+Producer: 9999 internalId: 9
+Producer completed
+Consumer: 0008 internalId: 8
+Consumer: 9999 internalId: 9
+Consumer completed
+Consumer completed
+Consumer completed
+Producer completed
+Producer completed
+
+==================================================
+
+--- Test 6 ---
+Command: python project2.py transactionsSingle.txt 1 1 1
+
+Transaction file: transactionsSingle.txt
+Starting producers: 1
+Starting consumers: 1
+Producer: 0001 internalId: 1
+Consumer: 0001 internalId: 1
+Producer: 9999 internalId: 2
+Consumer: 9999 internalId: 2
+Consumer completed
+Producer completed
+
+==================================================
+
+--- Test 7 ---
+Command: python project2.py transactionsEasy.txt 1 2 2
+
+Transaction file: transactionsEasy.txt
+Starting producers: 1
+Starting consumers: 2
+Producer: 0001 internalId: 1
+Consumer: 0001 internalId: 1
+Producer: 0002 internalId: 2
+Consumer: 0002 internalId: 2
+Producer: 9999 internalId: 3
+Producer completed
+Consumer: 9999 internalId: 3
+Consumer completed
+Consumer completed
+
+==================================================
+
